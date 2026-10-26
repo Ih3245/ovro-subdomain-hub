@@ -79,12 +79,12 @@ function switchView(viewName) {
   }
 }
 
-// Check initial session & URL route
-const isPathAdmin = window.location.pathname.startsWith('/admin') || window.location.hash === '#admin';
+// Check initial session & URL route (Secret Boss Access)
+const isPathBoss = window.location.pathname.startsWith('/boss') || window.location.hash === '#boss';
 
 if (adminToken) {
   switchView('admin');
-} else if (isPathAdmin) {
+} else if (isPathBoss) {
   modalAdminLogin.classList.remove('is-hidden');
   adminPassword.focus();
 } else if (userToken && userSubdomain) {
