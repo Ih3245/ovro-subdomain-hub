@@ -14,7 +14,6 @@ const viewAdmin = document.getElementById('view-admin');
 const modalUserLogin = document.getElementById('modal-user-login');
 const modalAdminLogin = document.getElementById('modal-admin-login');
 const navLoginBtn = document.getElementById('nav-login-btn');
-const navAdminBtn = document.getElementById('nav-admin-btn');
 const navBrand = document.getElementById('nav-brand');
 const closeUserModal = document.getElementById('close-user-modal');
 const closeAdminModal = document.getElementById('close-admin-modal');
@@ -80,9 +79,14 @@ function switchView(viewName) {
   }
 }
 
-// Check initial session
+// Check initial session & URL route
+const isPathAdmin = window.location.pathname.startsWith('/admin') || window.location.hash === '#admin';
+
 if (adminToken) {
   switchView('admin');
+} else if (isPathAdmin) {
+  modalAdminLogin.classList.remove('is-hidden');
+  adminPassword.focus();
 } else if (userToken && userSubdomain) {
   switchView('user');
 } else {
@@ -104,15 +108,6 @@ navBrand.addEventListener('click', (e) => {
 navLoginBtn.addEventListener('click', () => {
   modalUserLogin.classList.remove('is-hidden');
   loginSubdomain.focus();
-});
-
-navAdminBtn.addEventListener('click', () => {
-  if (adminToken) {
-    switchView('admin');
-  } else {
-    modalAdminLogin.classList.remove('is-hidden');
-    adminPassword.focus();
-  }
 });
 
 closeUserModal.addEventListener('click', () => modalUserLogin.classList.add('is-hidden'));
